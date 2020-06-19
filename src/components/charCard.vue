@@ -1,10 +1,10 @@
 <template>
   <div class="cell">
     <img id="pfp" :src="this.characterInfo.image" />
-    <h3>id: {{ characterInfo.id }}</h3>
-    <h3>name: {{ characterInfo.name }}</h3>
-    <h3>status: {{ characterInfo.status }}</h3>
-    <h3>location: {{ characterInfo.location }}</h3>
+    <h3>ID: {{ characterInfo.id }}</h3>
+    <h3>Name: {{ characterInfo.name }}</h3>
+    <h3>Status: {{ characterInfo.status }}</h3>
+    <h3>Location: {{ characterInfo.location }}</h3>
   </div>
 </template>
 
@@ -63,15 +63,19 @@ export default {
 
 <style scoped>
 .cell {
-    border: solid #00978b 10px;
+    border: solid #078691 10px;
     /* float: left; */
     display: inline-grid;
     width: 400px;
     text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #0d616f;
+    height: 700px;
 }
 #pfp {
-    height: 150px;
-    width: 150px;
+    height: 300px;
+    width: 300px;
     margin: auto;
 }
 </style>
