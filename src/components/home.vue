@@ -1,73 +1,44 @@
 <template>
-  <div class="main">
-    <h1>C-137</h1>
-    <input v-model="nextPage" placeholder="Enter page number (1-591)" @keydown.enter="changePage" />
+  <div>
+    <p>HOME</p>
+    <!-- id is passed as a prop to the charcard -->
+    <!-- Use templates to loop the app-charcard and pass it an id -->
+    <!-- <p>obj: {{ objJSON }}</p> -->
+    <app-charcard id="2"></app-charcard>
+    <app-charcard id="43"></app-charcard>
+    <!-- <template v-for="character in allChars">
+        {{ objJSON }}
 
-    <div class="characterContainer">
-      <img :src="this.characterInfo.image">
-      <h3>ID: {{ characterInfo.id }}</h3>
-      <h3>Name: {{ characterInfo.name }}</h3>
-      <h3>Status: {{ characterInfo.status }}</h3>
-      <h3>Location: {{ characterInfo.location }}</h3>
-      <h1 style="color: red;">{{ error }}</h1>
-      <br />
-      <!-- <p>{{ objJSON }}</p> -->
-    </div>
+    </template> -->
   </div>
 </template>
 
 <script>
+import charCard from "@/components/charCard";
 import axios from "axios";
 
 export default {
+  components: {
+    "app-charcard": charCard
+  },
   data() {
     return {
-      characterInfo: {
-        id: null,
-        name: null,
-        status: null,
-        location: null,
-        image: null
-      },
-      info: null,
-      stringified: null,
+      allChars: null,
       objJSON: null,
-      charNum: 1,
-      nextPage: null,
-      error: null
+      info: null,
+      randomNum: Number
     };
   },
-  mounted() {
-    this.APIcall();
-  },
+
+//   mounted() {
+//     this.APIcall();
+//   },
   methods: {
-    // Calls the API and passes the data to the vue instance.
     APIcall() {
       axios
-        .get("https://rickandmortyapi.com/api/character/" + this.charNum)
+        .get("https://rickandmortyapi.com/api/character")
         .then(response => (this.info = response));
-    },
-    first() {
-      this.nextPage = 1;
-    },
-    last() {
-      this.nextPage= 592;
-    },
-    changePage() {
-      this.charNum = this.nextPage;
-      nextPage = "";
-    },
-    // validNumberCheck() {
-    //   if (
-    //     Number.isInteger(this.charNum) &&
-    //     this.charNum < 592 &&
-    //     this.charNum > 0
-    //   ) {
-    //     this.error = "";
-    //   } else {
-    //     this.error = "Please choose a valid number";
-    //   }
-    // }
+    }
   },
   watch: {
     // When a response is recieved from the API, parse the response and log it in
@@ -78,35 +49,10 @@ export default {
       this.objJSON = stringJSON;
       // Easier than changing the boolean back to false.
       this.stringified += 1;
-    },
-    // Data has been made into an object, now it needs to be saved to the vue instance
-    stringified: function() {
-      this.characterInfo.id = this.objJSON.data.id;
-      this.characterInfo.name = this.objJSON.data.name;
-      this.characterInfo.status = this.objJSON.data.status;
-      this.characterInfo.location = this.objJSON.data.location.name;
-      this.characterInfo.image = this.objJSON.data.image;
-    },
-    charNum: function() {
-      this.charNum = this.nextPage;
-      console.log("making a call");
-      this.APIcall();
     }
   }
 };
 </script>
 
-<style scoped>
-.main {
-  margin: auto;
-  width: 200px;
-}
-
-.characterContainer {
-  text-align: left;
-  margin-top: 100px;
-}
+<style>
 </style>
-
-
-
