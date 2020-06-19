@@ -1,17 +1,16 @@
 <template>
   <div class="main">
     <h1>C-137</h1>
-    <input v-model="nextPage" placeholder="Enter page number (1-20)" @keydown.enter="changePage" />
-    <button @click.prevent="first">First</button>
-    <button @click.prevent="last">Last</button>
+    <input v-model="nextPage" placeholder="Enter page number (1-591)" @keydown.enter="changePage" />
+
     <div class="characterContainer">
+      <img :src="this.characterInfo.image">
       <h3>ID: {{ characterInfo.id }}</h3>
       <h3>Name: {{ characterInfo.name }}</h3>
       <h3>Status: {{ characterInfo.status }}</h3>
       <h3>Location: {{ characterInfo.location }}</h3>
       <h1 style="color: red;">{{ error }}</h1>
       <br />
-      <p>CharNum: {{ charNum }}</p>
       <!-- <p>{{ objJSON }}</p> -->
     </div>
   </div>
@@ -27,7 +26,8 @@ export default {
         id: null,
         name: null,
         status: null,
-        location: null
+        location: null,
+        image: null
       },
       info: null,
       stringified: null,
@@ -55,6 +55,7 @@ export default {
     },
     changePage() {
       this.charNum = this.nextPage;
+      nextPage = "";
     },
     // validNumberCheck() {
     //   if (
@@ -84,6 +85,7 @@ export default {
       this.characterInfo.name = this.objJSON.data.name;
       this.characterInfo.status = this.objJSON.data.status;
       this.characterInfo.location = this.objJSON.data.location.name;
+      this.characterInfo.image = this.objJSON.data.image;
     },
     charNum: function() {
       this.charNum = this.nextPage;
