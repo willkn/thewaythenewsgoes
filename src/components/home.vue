@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <p>HOME</p>
-    <!-- id is passed as a prop to the charcard -->
-    <!-- Use templates to loop the app-charcard and pass it an id -->
-    <!-- <p>obj: {{ objJSON }}</p> -->
-    <app-charcard id="2"></app-charcard>
-    <app-charcard id="43"></app-charcard>
-    <!-- <template v-for="character in allChars">
-        {{ objJSON }}
-
-    </template> -->
+<div>
+    <img id="rnm" src="@/assets/rnm.png">
+  <div id="charContainer">
+    <!-- <img id="logo" src="@/assets/rnmLogo.png"> -->
+    <app-charcard :id="randomNumbers[0]"></app-charcard>
+    <app-charcard :id="randomNumbers[1]"></app-charcard>
+    <app-charcard :id="randomNumbers[2]"></app-charcard>
+    <app-charcard :id="randomNumbers[3]"></app-charcard>
+    <app-charcard :id="randomNumbers[4]"></app-charcard>
+    <app-charcard :id="randomNumbers[5]"></app-charcard>
+    <app-charcard :id="randomNumbers[6]"></app-charcard>
+    <app-charcard :id="randomNumbers[7]"></app-charcard>
   </div>
+</div>
 </template>
 
 <script>
@@ -26,19 +28,30 @@ export default {
       allChars: null,
       objJSON: null,
       info: null,
-      randomNum: Number
+      randomNumbers: [null, null, null, null, null, null, null, null]
     };
   },
+  created() {
+    this.numberGen();
+  },
 
-//   mounted() {
-//     this.APIcall();
-//   },
   methods: {
     APIcall() {
       axios
         .get("https://rickandmortyapi.com/api/character")
         .then(response => (this.info = response));
-    }
+    },
+    numberGen() {
+      this.randomNumbers[0] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[1] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[2] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[3] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[4] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[5] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[6] = Math.floor(Math.random() * 592 + 1);
+      this.randomNumbers[7] = Math.floor(Math.random() * 592 + 1);
+
+         }
   },
   watch: {
     // When a response is recieved from the API, parse the response and log it in
@@ -54,5 +67,25 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+/* .app-charcard {
+  float: left;
+} */
+div {
+    text-align: center;
+}
+
+#logo {
+    height: 200px;
+    width: 300px;
+}
+
+#charContainer {
+    padding-top: 10px;
+}
+
+#rnm {
+    height: 200px;
+    width: 500px;
+}
 </style>

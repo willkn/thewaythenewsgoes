@@ -63,15 +63,15 @@ export default {
 
 <style scoped>
 .cell {
-    border: solid red 3px;
-    margin: auto;
-    width: 400px;
-    /* height: 700px; */
+    border: solid #00978b 10px;
     /* float: left; */
+    display: inline-grid;
+    width: 400px;
     text-align: center;
 }
 #pfp {
     height: 150px;
     width: 150px;
+    margin: auto;
 }
 </style>
