@@ -1,13 +1,18 @@
 <template>
   <div class="main">
     <h1>C-137</h1>
+    <input v-model="nextPage" placeholder="Enter page number (1-20)" @keydown.enter="changePage" />
+    <button @click.prevent="first">First</button>
+    <button @click.prevent="last">Last</button>
     <div class="characterContainer">
       <h3>ID: {{ characterInfo.id }}</h3>
       <h3>Name: {{ characterInfo.name }}</h3>
-      <h3>Age: {{ characterInfo.age }}</h3>
       <h3>Status: {{ characterInfo.status }}</h3>
       <h3>Location: {{ characterInfo.location }}</h3>
-      <h1>Info: {{ info }}</h1>
+      <h1 style="color: red;">{{ error }}</h1>
+      <br />
+      <p>CharNum: {{ charNum }}</p>
+      <!-- <p>{{ objJSON }}</p> -->
     </div>
   </div>
 </template>
@@ -21,29 +26,69 @@ export default {
       characterInfo: {
         id: null,
         name: null,
-        age: null,
         status: null,
         location: null
       },
-      info: null
+      info: null,
+      stringified: null,
+      objJSON: null,
+      charNum: 1,
+      nextPage: null,
+      error: null
     };
   },
-  methods: {},
   mounted() {
-    // Base URL, append this url for any future calls.
-    let baseurl = "https://rickandmortyapi.com/api/";
-    axios
-      .get("https://rickandmortyapi.com/api/character")
-      .then(response => (this.info = response));
+    this.APIcall();
+  },
+  methods: {
+    // Calls the API and passes the data to the vue instance.
+    APIcall() {
+      axios
+        .get("https://rickandmortyapi.com/api/character/" + this.charNum)
+        .then(response => (this.info = response));
+    },
+    first() {
+      this.nextPage = 1;
+    },
+    last() {
+      this.nextPage= 592;
+    },
+    changePage() {
+      this.charNum = this.nextPage;
+    },
+    // validNumberCheck() {
+    //   if (
+    //     Number.isInteger(this.charNum) &&
+    //     this.charNum < 592 &&
+    //     this.charNum > 0
+    //   ) {
+    //     this.error = "";
+    //   } else {
+    //     this.error = "Please choose a valid number";
+    //   }
+    // }
   },
   watch: {
-    // When a response is recieved from the API, parse the response and log it in  
+    // When a response is recieved from the API, parse the response and log it in
     info: function() {
-      // Stringifys the json then constructs an object
+      // Stringifies the JSON then constructs an object
       var stringJSON = JSON.stringify(this.info);
-      JSON.parse(stringJSON);
-      console.log(stringJSON);
-      
+      var stringJSON = JSON.parse(stringJSON);
+      this.objJSON = stringJSON;
+      // Easier than changing the boolean back to false.
+      this.stringified += 1;
+    },
+    // Data has been made into an object, now it needs to be saved to the vue instance
+    stringified: function() {
+      this.characterInfo.id = this.objJSON.data.id;
+      this.characterInfo.name = this.objJSON.data.name;
+      this.characterInfo.status = this.objJSON.data.status;
+      this.characterInfo.location = this.objJSON.data.location.name;
+    },
+    charNum: function() {
+      this.charNum = this.nextPage;
+      console.log("making a call");
+      this.APIcall();
     }
   }
 };
