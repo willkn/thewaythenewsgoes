@@ -59,7 +59,6 @@ export default {
         .then(response => (this.info = response));
     },
     numberGen() {
-      window.scrollTo(600, 600);
       this.randomNumbers = [];
       this.randomNumbers[0] = Math.floor(Math.random() * 591 + 1);
       this.randomNumbers[1] = Math.floor(Math.random() * 591 + 1);

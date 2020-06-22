@@ -172,7 +172,7 @@ export default {
   padding: 20px;
   margin-top: 20px;
   background-color: #0d616f;
-  height: 700px;
+  height: 600px;
 }
 
 #pfp {

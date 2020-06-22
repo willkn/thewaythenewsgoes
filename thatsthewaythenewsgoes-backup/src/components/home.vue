@@ -16,8 +16,8 @@
       <p>Find stats about your favourite Rick and Morty characters!</p>
       <p>The homepage has random characters but feel free to search for your favourites by</p>
       <p>name by using the search bar in the top right. Go to the search page via the</p>
-      <p>button below to perform a more in depth search where you can specify the species, status and</p>
-      <p>gender when searching.</p>
+      <p>button in the top left to perform a more in depth search where you can specify the</p>
+      <p>species, status and gender when searching.</p>
       <br />
       <p>Click reroll at the bottom to generate nine new characters!</p>
     </div>
